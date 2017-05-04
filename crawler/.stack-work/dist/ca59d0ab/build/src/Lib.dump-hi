@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2017-05-04 10:46:20.2812146 UTC
+2017-05-04 19:36:33.8778526 UTC
 
 interface crawler-0.1.0.0-9t1m2uCPy39IMQF6l7wxJ2:Lib [family instance module] 8002
-  interface hash: b9b0a1bef604dee3fb7ac35b6ccc6fe9
-  ABI hash: b59d159669abea6c4285f9d248039b13
+  interface hash: db9d0d735077be987b9ef9f584ebbd50
+  ABI hash: a0565b180785e7120afef81d087d7e78
   export-list hash: b217c42515b795c5df4f9798b191876a
   orphan hash: 9f86934c3da2c2893b69c3a069883d95
   flag hash: c31eaf02328cd1a3b06204326fe55725
@@ -263,6 +263,7 @@ import  -/  aeson-1.0.2.1@aeson-1.0.2.1-9SgEdsKXY7t7XMd7nxyWra:Data.Aeson.Types.
 import  -/  aeson-1.0.2.1@aeson-1.0.2.1-9SgEdsKXY7t7XMd7nxyWra:Data.Aeson.Types.ToJSON 69616e4ab20e4ffad63063f7af51213c
 import  -/  base-4.9.1.0:Control.Monad.IO.Class 3f1875e753ac8c44dae64dc062ea742e
 import  -/  base-4.9.1.0:Data.Either 186ef9adf6b47e24f39efe9b2e18e352
+import  -/  base-4.9.1.0:Data.Foldable 254e836c2d813d34e47feb29bb8d40ed
 import  -/  base-4.9.1.0:Data.Proxy 657d37a7ff49fc895edf1c731d0fa581
 import  -/  base-4.9.1.0:GHC.Base 4caea1123ecf4b46e27cbccd6d279377
 import  -/  base-4.9.1.0:GHC.Generics 87e8d511f978e043d53db008cc403901
@@ -1558,12 +1559,12 @@ d966ed6d97f1bacdc587a9e293988c99
                   (GHC.Generics.Rec0 GHC.Base.String)))
 73009460d8098bfc2e98d3ad4466b1a4
   data Response_crawl = Response_crawl {result :: GHC.Base.String}
-ffe734bf3368e0dce5bfee843901f370
+f7115f0dba91a01a43e0259ca3c5da73
   app :: Network.Wai.Application
   {- Arity: 2,
      Unfolding: (Servant.Server.Internal.RoutingApplication.toApplication
                    Lib.app1) -}
-ba871be04d2726f517d562bf4620e29c
+09ad552869347121fe0d4902a521e10d
   app1 ::
     Network.Wai.Internal.Request
     -> (Servant.Server.Internal.RoutingApplication.RouteResult
@@ -1586,7 +1587,7 @@ ba871be04d2726f517d562bf4620e29c
 241d85e8e06211b1d370d6e444017717
   app10 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "hello"#) -}
-1daade80a5264f52724d66588cd250e0
+a8327ee6aaa7b5f7ecd220fc46d780dd
   app11 ::
     GitHub.Data.Request.Request
       'GitHub.Data.Request.RO (Data.Vector.Vector GitHub.Data.Repos.Repo)
@@ -1595,7 +1596,7 @@ ba871be04d2726f517d562bf4620e29c
                    @ (Data.Vector.Vector GitHub.Data.Repos.Repo)
                    GitHub.Endpoints.Repos.currentUserRepos_$dFromJSON1
                    Lib.app12) -}
-f0b66aed42f8280e014231dcf300a957
+5c03bce177b85f20d64668e0439f31af
   app12 ::
     GitHub.Data.Request.SimpleRequest
       'GitHub.Data.Request.RO (Data.Vector.Vector GitHub.Data.Repos.Repo)
@@ -1607,21 +1608,21 @@ f0b66aed42f8280e014231dcf300a957
                    Lib.app13
                    GitHub.Endpoints.Repos.currentUserRepos22
                    GitHub.Data.Request.FetchAll) -}
-6ac4c7ffd5a497f797869a1f2d63972f
+c4d877e8f8f3c64b1dc7642ca5e1e7aa
   app13 :: [Data.Text.Internal.Text]
   {- Unfolding: (GHC.Types.:
                    @ Data.Text.Internal.Text
                    GitHub.Endpoints.Repos.userRepos2
                    Lib.app14) -}
-f63b0f70d0b9c06e11f823facbee1b8c
+b663fabf61c4e5095d19904fc24dc35c
   app14 :: [Data.Text.Internal.Text]
   {- Unfolding: (GHC.Types.:
                    @ Data.Text.Internal.Text
                    Lib.app15
                    GitHub.Endpoints.Repos.createRepoR2) -}
-29d9c48a892dffa7b66cdb4f0cbee1a1
+1cc515fa85f6a0e5aba30d4d20d23f41
   app15 :: Data.Text.Internal.Text
-  {- Unfolding: (Data.Text.Show.unpackCString# "mike-burns"#) -}
+  {- Unfolding: (Data.Text.Show.unpackCString# "GaryGunn94"#) -}
 f1ffedcb1f551a2e46b33f19b875dabf
   app16 ::
     Servant.Server.Internal.RoutingApplication.Delayed
@@ -1659,7 +1660,7 @@ f1ffedcb1f551a2e46b33f19b875dabf
                            200
                            '[Servant.API.ContentTypes.JSON]
                            Lib.Response_crawl))) -}
-147f06636866b90f3b4c6ad01d884091
+bf40ca6ee7cfc962327a6aff19c07cc1
   app2 ::
     Data.Map.Base.Map
       Data.Text.Internal.Text
@@ -1686,7 +1687,7 @@ f1ffedcb1f551a2e46b33f19b875dabf
                       @ (Servant.Server.Internal.Router.Router'
                            ()
                            Servant.Server.Internal.RoutingApplication.RoutingApplication)) } }) -}
-f7b084d9590cc47cf209721b59352c10
+775d0ae712811ef0185ab4b9dc539dae
   app3 :: Servant.Server.Internal.Router.Router ()
   {- Unfolding: (Lib.app16
                    Lib.app4
@@ -1704,7 +1705,7 @@ f7b084d9590cc47cf209721b59352c10
                                 <Control.Monad.Trans.Except.ExceptT
                                    Servant.Server.Internal.ServantErr.ServantErr
                                    GHC.Types.IO>_N)))_R) -}
-e3e280925ffb188672041e3155c07762
+8e4215259514fedf3cd18738e5e60a25
   app4 ::
     Servant.Server.Internal.RoutingApplication.Delayed
       () (Servant.Server.Internal.Server Lib.API)
@@ -1752,7 +1753,7 @@ e3e280925ffb188672041e3155c07762
                         (Sym (Servant.Server.Internal.RoutingApplication.N:DelayedIO[0]
                                   <()>_R)))
                    Lib.app5) -}
-b90adf8e1a26698d180ed4c36db2c4d9
+80e6893324239429500bfeb80243f195
   app5 ::
     ()
     -> ()
@@ -1766,7 +1767,7 @@ b90adf8e1a26698d180ed4c36db2c4d9
                    (ds2 :: ())
                    (ds3 :: Network.Wai.Internal.Request) ->
                  Lib.app_result) -}
-a3e09542c0577ebc8912a0259eb67299
+f772a3d2e64630779c3e1c4ef33ea313
   app6 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld,
@@ -1789,12 +1790,54 @@ a3e09542c0577ebc8912a0259eb67299
                              ipv of ds2 { (#,#) ipv2 ipv3 ->
                       (# ipv2, Lib.app8 #) }
                    Data.Either.Right repos
-                   -> case GHC.IO.Handle.Text.hPutStr2
+                   -> case repos of v2 { Data.Vector.Vector ipv2 ipv3 ipv4 ->
+                      letrec {
+                        $wfoldrM_loop :: GHC.Types.SPEC
+                                         -> GHC.Prim.Int#
+                                         -> GHC.Prim.State# GHC.Prim.RealWorld
+                                         -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+                          {- Arity: 3, Strictness: <S,1*U><S,U><S,U>, Inline: [0] -}
+                        = \ (w :: GHC.Types.SPEC)
+                            (ww :: GHC.Prim.Int#)
+                            (w1 :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                          case w of ds5 { DEFAULT ->
+                          case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.>=# ww ipv3) of wild1 {
+                            GHC.Types.False
+                            -> case GHC.IO.Handle.Text.hPutStr2
+                                      GHC.IO.Handle.FD.stdout
+                                      (case GHC.Prim.indexArray#
+                                              @ GitHub.Data.Repos.Repo
+                                              ipv4
+                                              (GHC.Prim.+# ipv2 ww) of ds2 { Unit# ipv5 ->
+                                       case ipv5 of wild2 { GitHub.Data.Repos.Repo ds4 ds6 ds3 ds7 ds8 ds9 ds10 ds11 ds12 ds13 ds14 ds15 ds16 ds17 ds18 ds19 ds20 ds21 ds22 dt ds23 ds24 ds25 ds26 ds27 ds28 ds29 ds30 dt1 ->
+                                       case ds6 of wild3 {
+                                         GHC.Base.Nothing -> GHC.Show.$fShowMaybe3
+                                         GHC.Base.Just b1
+                                         -> GHC.Base.++
+                                              @ GHC.Types.Char
+                                              GHC.Show.$fShowMaybe1
+                                              (case Data.Text.Show.$w$cshowsPrec
+                                                      b1
+                                                      (GHC.Types.[]
+                                                         @ GHC.Types.Char) of ww1 { (#,#) ww2 ww3 ->
+                                               GHC.Types.: @ GHC.Types.Char ww2 ww3 }) } } })
+                                      GHC.Types.True
+                                      w1 of ds2 { (#,#) ipv5 ipv6 ->
+                               $wfoldrM_loop GHC.Types.SPEC (GHC.Prim.+# ww 1#) ipv5 }
+                            GHC.Types.True -> (# w1, GHC.Tuple.() #) } }
+                      } in
+                      case $wfoldrM_loop
+                             GHC.Types.SPEC
+                             0#
+                             ipv of ds2 { (#,#) ipv5 ipv6 ->
+                      case GHC.IO.Handle.Text.hPutStr2
                              GHC.IO.Handle.FD.stdout
                              Lib.app7
                              GHC.Types.True
-                             ipv of ds2 { (#,#) ipv2 ipv3 ->
-                      (# ipv2, Lib.app8 #) } } }) -}
+                             ipv5 of ds3 { (#,#) ipv7 ipv8 ->
+                      (# ipv7, Lib.app8 #) } } } } }) -}
 e50c2b5be14ff6e54fb14fcf90670345
   app7 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCString# "working"#) -}
@@ -1809,7 +1852,7 @@ f8fceb0588c7f842e7f3359f306efee2
 d46c3a703b525e69098057095be3443d
   app9 :: Lib.Response_crawl
   {- Unfolding: (Lib.Response_crawl Lib.app10) -}
-70ae02664c5f16ec4c222daf892db5e6
+c1336b6616109b70e27033eef91bfc8c
   app_r :: Servant.Server.Internal.Router.Router ()
   {- Strictness: m1,
      Unfolding: (Servant.Server.Internal.Router.StaticRouter
@@ -1819,7 +1862,7 @@ d46c3a703b525e69098057095be3443d
                    (GHC.Types.[]
                       @ (()
                          -> Servant.Server.Internal.RoutingApplication.RoutingApplication))) -}
-6811db2f4c5fa01043fb1e7d27dc1c40
+2c4b59a551a4cf8d3a9b96d61a52890e
   app_result ::
     Servant.Server.Internal.RoutingApplication.RouteResult
       (Servant.Server.Internal.Server Lib.API)
@@ -1865,12 +1908,12 @@ aa652fbd97151ac93f32621d7e75d529
      Unfolding: InlineRule (1, True, False)
                 (\ (ds :: Lib.Response_crawl) ->
                  case ds of wild { Lib.Response_crawl ds1 -> ds1 }) -}
-415efa0223941fa24b55b72725b12210
+d670f97d935a2eb49e16a5aa35fac5c4
   startApp :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Lib.startApp1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-e91ce4a0fa8ba9f3c2cc3c70fb41ad80
+b2d61857e0b9068354fecfc8686dd287
   startApp1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)

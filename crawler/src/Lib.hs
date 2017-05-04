@@ -61,13 +61,13 @@ server = initialise_crawl
 
 get_repo :: Text -> IO()
 get_repo name = liftIO $ do
-	user_repository <- Github.userRepos "mike-burns" GithubData.RepoPublicityAll
+	user_repository <- Github.userRepos "GaryGunn94" GithubData.RepoPublicityAll
   	case user_repository of
   		(Left error) -> do 
   			putStrLn $ "Error: " ++ (show error)
   		(Right repos) -> do
   			--let desc = (GithubData.repoDescription repos)
-  			let repo = repos :: Github.Repo
+  			mapM_ (formatRepo) repos
   			putStrLn $ "working"
 
 formatRepo :: Github.Repo -> IO()
