@@ -1,0 +1,16 @@
+Configuring string-conversions-0.4.0.1...
+Building string-conversions-0.4.0.1...
+Preprocessing library string-conversions-0.4.0.1...
+[1 of 2] Compiling Data.String.Conversions ( src\Data\String\Conversions.hs, .stack-work\dist\ca59d0ab\build\Data\String\Conversions.o )
+[2 of 2] Compiling Data.String.Conversions.Monomorphic ( src\Data\String\Conversions\Monomorphic.hs, .stack-work\dist\ca59d0ab\build\Data\String\Conversions\Monomorphic.o )
+Installing library in
+C:\sr\snapshots\a28fa890\lib\x86_64-windows-ghc-8.0.2\string-conversions-0.4.0.1-5bhARACLQyXG4DLNegoSj4
+Registering string-conversions-0.4.0.1...
+Cabal-simple_Z6RU0evB_1.24.2.0_ghc-8.0.2.exe:
+'C:\Users\oisin\AppData\Local\Programs\stack\x86_64-windows\ghc-8.0.2\bin\ghc-pkg.EXE'
+exited with an error:
+string-conversions-0.4.0.1: Warning: haddock-interfaces:
+C:\sr\snapshots\a28fa890\doc\string-conversions-0.4.0.1\string-conversions.haddock
+doesn't exist or isn't a file
+ghc-pkg.EXE: C:\sr\snapshots\a28fa890\pkgdb\package.cache: you don't have
+permission to modify this file
