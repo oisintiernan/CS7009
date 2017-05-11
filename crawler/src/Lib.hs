@@ -29,6 +29,9 @@ import Data.Text
 import qualified Data.ByteString.Char8 as DBC
 import qualified GitHub.Endpoints.Repos as Github
 import qualified GitHub.Data.Repos as GithubData
+import qualified GitHub.Data.Name as GDN
+import Database.Bolt
+import qualified Data.Map as DM
 
 
 data Response_crawl = Response_crawl { result :: String
@@ -40,7 +43,7 @@ type API = "initialise_crawl" :> Get '[JSON] Response_crawl
 
 
 startApp :: IO ()
-startApp = run 8080 app
+startApp = Network.Wai.Handler.Warp.run 8080 app
 
 app :: Application
 app = serve api server
@@ -72,8 +75,25 @@ get_repo name = liftIO $ do
 
 formatRepo :: Github.Repo -> IO()
 formatRepo repo = do
-	let desc = GithubData.repoDescription repo
+	let desc = GDN.untagName $ GithubData.repoName repo
+	liftIO $ insertSomething desc
 	putStrLn (show desc)
+
+data Reps = Reps{
+        rep_name      :: Text
+}deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
+
+insertSomething :: Text -> IO [Record]
+insertSomething userName = do
+   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
+   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+   Database.Bolt.close pipe
+   return result
+ where cypher = "CREATE (n:User {name: {userName}}) RETURN n"
+       params = DM.fromList [("userName", Database.Bolt.T userName)]
+
+	
 
 
 --Need to make an initial function which just gets one repository and then adds it to the neo4j graph.

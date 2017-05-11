@@ -26,6 +26,8 @@ library
                      , servant
                      , servant-client
                      , text
+                     , hasbolt
+                     , containers
   default-language:    Haskell2010
 
 executable crawler-exe

@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2017-05-04 19:36:35.0942604 UTC
+2017-05-11 12:10:05.3635745 UTC
 
 interface main@main:Main 8002
-  interface hash: 9ef8ffb36877f427c99fce9dccb09142
-  ABI hash: 5cc92c77e0705775afa80c7732bc606e
-  export-list hash: 4c9a2102a89ef8dd754b4aaa935ec1e2
+  interface hash: 888775f335662cdd7ff6a06ac2ba9b07
+  ABI hash: 267ea67242da77d4decb1a588d084ab8
+  export-list hash: 2bb19ba90498cf56a53f04aa26b56629
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: f6b594c46c7010126aaf988ffef9c2ee
   sig of: Nothing
@@ -48,9 +48,14 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       containers-0.5.7.1@containers-0.5.7.1
                       contravariant-1.4@contravariant-1.4-3UCY3arLvoG71jrGOYoc39
                       cookie-0.4.2.1@cookie-0.4.2.1-K68NuFIZ07nEstxwB6c3aL
-                      crawler-0.1.0.0@crawler-0.1.0.0-9t1m2uCPy39IMQF6l7wxJ2
+                      crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd
                       cryptonite-0.21@cryptonite-0.21-1TaSE99ywh3KfPMyu24x4R
+                      data-binary-ieee754-0.4.4@data-binary-ieee754-0.4.4-7iiF2mP1jcB6tVSPgIyBOi
+                      data-default-0.7.1.1@data-default-0.7.1.1-7EGYJX2YWqWJRbPFUHNoCr
                       data-default-class-0.1.2.0@data-default-class-0.1.2.0-GsXqKN6o1X9jr0fF5qCVD
+                      data-default-instances-containers-0.0.1@data-default-instances-containers-0.0.1-bob6IQGdJq92c061H46zK
+                      data-default-instances-dlist-0.0.1@data-default-instances-dlist-0.0.1-FKnZBeovJMk4M89wQxDhjl
+                      data-default-instances-old-locale-0.0.1@data-default-instances-old-locale-0.0.1-9zaGDEmgOixKkmLylWdN5l
                       deepseq-1.4.2.0@deepseq-1.4.2.0
                       deepseq-generics-0.2.0.0@deepseq-generics-0.2.0.0-IjS8Jfo7YCzLKpV8N96gbz
                       directory-1.3.0.0@directory-1.3.0.0
@@ -64,6 +69,7 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       free-4.12.4@free-4.12.4-GP8SJAzGfyq6UeKHSkzaha
                       ghc-boot-th-8.0.2@ghc-boot-th-8.0.2 ghc-prim-0.5.0.0
                       github-0.15.0@github-0.15.0-8PXD14L7VL4HQdWJCixF7Q
+                      hasbolt-0.1.1.2@hasbolt-0.1.1.2-BDpz1wxW2gl1G9Jlk473Ws
                       hashable-1.2.6.0@hashable-1.2.6.0-3EXxoqeEgbfAKr6aGkye6x
                       hourglass-0.2.10@hourglass-0.2.10-ILGOyD7m7Ux4hWsSIqCzOU
                       http-api-data-0.3.7@http-api-data-0.3.7-GyK1pJKa89V3PeDl7XbD3n
@@ -84,7 +90,9 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       mmorph-1.0.9@mmorph-1.0.9-5bASEvmIkr5CpdAYXwPsn0
                       mtl-2.2.1@mtl-2.2.1-BLKBelFsPB3BoFeSWSOYj6
                       network-2.6.3.1@network-2.6.3.1-AwRxOQvT8JM9e8zDFK7aCI
+                      network-simple-0.4.0.5@network-simple-0.4.0.5-lpFi9TIFmuDEctWkWAYkx
                       network-uri-2.6.1.0@network-uri-2.6.1.0-EwGrJ9bdUqR1E7dAIJ4cwF
+                      old-locale-1.0.0.7@old-locale-1.0.0.7-KGBP1BSKxH5GCm0LnZP04j
                       parsec-3.1.11@parsec-3.1.11-113irVHGgd88sRnywByDNw
                       pem-0.2.2@pem-0.2.2-CkEwei5500yF2642aAaOAi
                       pointed-5@pointed-5-KiBnDbcGaglAeKUqV3ZrHm
@@ -139,6 +147,12 @@ orphans: attoparsec-0.13.1.0@attoparsec-0.13.1.0-HhuV3U7exg79UmloYn3kX2:Data.Att
          binary-0.8.3.0@binary-0.8.3.0:Data.Binary.Generic
          binary-orphans-0.1.6.0@binary-orphans-0.1.6.0-3wDmOHEn8Qx56lAealD2cb:Data.Binary.Orphans
          bytestring-0.10.8.1@bytestring-0.10.8.1:Data.ByteString.Builder
+         data-default-instances-containers-0.0.1@data-default-instances-containers-0.0.1-bob6IQGdJq92c061H46zK:Data.Default.Instances.Containers
+         data-default-instances-dlist-0.0.1@data-default-instances-dlist-0.0.1-FKnZBeovJMk4M89wQxDhjl:Data.Default.Instances.DList
+         data-default-instances-old-locale-0.0.1@data-default-instances-old-locale-0.0.1-9zaGDEmgOixKkmLylWdN5l:Data.Default.Instances.OldLocale
+         hasbolt-0.1.1.2@hasbolt-0.1.1.2-BDpz1wxW2gl1G9Jlk473Ws:Database.Bolt.Connection.Instances
+         hasbolt-0.1.1.2@hasbolt-0.1.1.2-BDpz1wxW2gl1G9Jlk473Ws:Database.Bolt.Value.Instances
+         hasbolt-0.1.1.2@hasbolt-0.1.1.2-BDpz1wxW2gl1G9Jlk473Ws:Database.Bolt.Value.Structure
          hashable-1.2.6.0@hashable-1.2.6.0-3EXxoqeEgbfAKr6aGkye6x:Data.Hashable.Generic
          http-client-0.5.6.1@http-client-0.5.6.1-2W6zxroNdCK5sQzLuJ9gdm:Network.HTTP.Client.Request
          network-2.6.3.1@network-2.6.3.1-AwRxOQvT8JM9e8zDFK7aCI:Network.Socket
@@ -181,7 +195,7 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
                          containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
                          containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
-                         crawler-0.1.0.0@crawler-0.1.0.0-9t1m2uCPy39IMQF6l7wxJ2:Lib
+                         crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd:Lib
                          dlist-0.8.0.2@dlist-0.8.0.2-6Wnps4GD7EFnRucVzXIFD:Data.DList
                          foundation-0.0.7@foundation-0.0.7-Is1tbv9X5XE1TfMPJqOjwz:Foundation.Array.Bitmap
                          foundation-0.0.7@foundation-0.0.7-Is1tbv9X5XE1TfMPJqOjwz:Foundation.Array.Boxed
@@ -259,7 +273,7 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          vector-instances-3.4@vector-instances-3.4-2giQezUHLOTFtaqeGBJVW:Data.Vector.Instances
                          zlib-0.6.1.2@zlib-0.6.1.2-7negTfm2ujt1gW4wr40MUp:Codec.Compression.Zlib.Stream
 import  -/  base-4.9.1.0:Prelude 74b3e204395920329f6de9d97206abe9
-import  -/  crawler-0.1.0.0@crawler-0.1.0.0-9t1m2uCPy39IMQF6l7wxJ2:Lib a0565b180785e7120afef81d087d7e78
+import  -/  crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd:Lib b802be2e08dbb210710cacbf71286a37
 import  -/  ghc-prim-0.5.0.0:GHC.Types 89f8de4f08018c9177c98d979eae0e45
 d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule :: GHC.Types.Module
@@ -273,12 +287,12 @@ d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule2 :: GHC.Types.TrName
   {- HasNoCafRefs, Strictness: m1,
      Unfolding: (GHC.Types.TrNameS "main"#) -}
-5b251a846d5c3cf38f3d62bb8d4ab4de
+17b6ff1d7a2544555971559fe0698cc9
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Lib.startApp1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-4a0db7d6bf47a48891e77d31d59f61f7
+12b08ddb05cd47f26b95fab889d3fcbb
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
