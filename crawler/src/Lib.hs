@@ -30,6 +30,8 @@ import qualified Data.ByteString.Char8 as DBC
 import qualified GitHub.Endpoints.Repos as Github
 import qualified GitHub.Data.Repos as GithubData
 import qualified GitHub.Data.Name as GDN
+import qualified GitHub.Data as GD 
+import qualified GitHub.Endpoints.Repos.Collaborators as GERC
 import Database.Bolt
 import qualified Data.Map as DM
 
@@ -56,7 +58,7 @@ server = initialise_crawl
   where
   	initialise_crawl :: Handler Response_crawl
   	initialise_crawl = do
-  		liftIO $ get_repo "mike"
+  		liftIO $ get_repo "GaryGunn94"
   		return $ Response_crawl "hello"
   		
 
@@ -69,23 +71,42 @@ get_repo name = liftIO $ do
   		(Left error) -> do 
   			putStrLn $ "Error: " ++ (show error)
   		(Right repos) -> do
-  			--let desc = (GithubData.repoDescription repos)
-  			mapM_ (formatRepo) repos
+  			liftIO $ insertSomething name
+  			mapM_ (formatRepo "GaryGunn94") repos
   			putStrLn $ "working"
 
-formatRepo :: Github.Repo -> IO()
-formatRepo repo = do
-	let desc = GDN.untagName $ GithubData.repoName repo
-	liftIO $ insertSomething desc
-	putStrLn (show desc)
+formatRepo :: Text -> Github.Repo -> IO()
+formatRepo name repo = do
+	let repoNames = GDN.untagName $ GithubData.repoName repo
+	putStrLn $ show repoNames
+	user_repository <- (GERC.collaboratorsOn (GD.mkOwnerName name) (GD.mkRepoName repoNames))
+	case user_repository of
+		(Left error) -> do 
+			putStrLn $ "Error: there is no collaborators"
+			a <- getLine
+  		(Right su) -> do
+  			putStrLn (show su)
+
+  			--let desc = (GithubData.repoDescription repos)
+
+
+
+
+
+
+
+
+
+
 
 data Reps = Reps{
         rep_name      :: Text
 }deriving(ToJSON, FromJSON, Generic, Eq, Show)
 
 
+
 insertSomething :: Text -> IO [Record]
-insertSomething userName = do
+insertSomething  userName = do
    pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
    result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
    Database.Bolt.close pipe
@@ -93,9 +114,28 @@ insertSomething userName = do
  where cypher = "CREATE (n:User {name: {userName}}) RETURN n"
        params = DM.fromList [("userName", Database.Bolt.T userName)]
 
-	
+insertRepo :: Text -> IO [Record]
+insertRepo  repoName = do
+   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
+   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+   Database.Bolt.close pipe
+   return result
+ where cypher = "CREATE (n:Repo {name: {repoName}}) RETURN n"
+       params = DM.fromList [("repoName", Database.Bolt.T repoName)]
 
 
+
+
+
+
+
+
+
+
+
+
+
+--RETURN r
 --Need to make an initial function which just gets one repository and then adds it to the neo4j graph.
 
 
