@@ -97,6 +97,11 @@ library
                  , wai
                  , github
                  , utf8-string
+                 , servant
+                 , servant-client
+                 , servant-server
+                 , common
+                 , http-client
 
 executable         webpage
     if flag(library-only)

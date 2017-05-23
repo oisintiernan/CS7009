@@ -2,6 +2,7 @@ flags: {}
 extra-package-dbs: []
 packages:
 - '.'
+- C:\Users\oisin\Desktop\CS7009\CS7009\Common
 extra-deps:
 - load-env-0.1.1
 - aeson-0.11.3.0
@@ -10,4 +11,5 @@ extra-deps:
 - http-client-tls-0.2.4.1
 - http-conduit-2.1.11
 - yesod-auth-oauth2-0.2.2
+- hasbolt-0.1.1.2
 resolver: nightly-2017-02-08

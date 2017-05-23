@@ -20,19 +20,54 @@ import Data.Aeson
 import Data.Text.Encoding
 import Data.Vector as V hiding (mapM)
 import Data.Text hiding(intercalate, map, lookup)
+import qualified Servant as S
+import Servant.API
+import Servant.Client
+import qualified Servant.Server as SS
+import Network.HTTP.Client
+import Data.ByteString.Char8 as DBC hiding (putStrLn)
+import Data.Text as DT hiding(intercalate, map) 
+import Lib
+
+--data UserData = UserData{ user_name :: String,
+--                          user_token :: String
+--                        } deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
+--data RepoData = RepoData{ repo_name :: Text,
+--                          repo_owner :: Text
+--                        } deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
+--data Response_crawl = Response_crawl { result :: String
+--                                     } deriving (Show,Eq,Generic,ToJSON,FromJSON)
 
 
-data RepoData = RepoData{
-	repo_name :: Text,
-	repo_owner :: Text
-}deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
+
+api :: S.Proxy Lib.API
+api = S.Proxy
+
+initialise_crawl :: UserData -> ClientM Response_crawl
+
+(initialise_crawl) = client api
 
 getProfileR :: Handler Html
 getProfileR = do
     (_, user) <- requireAuthPair
     defaultLayout $ do
     	sess <- getSession
-    	let access_token = lookup "access_token" sess
-    	let uname = lookup "login" sess
-        setTitle . toHtml $ Data.Text.Encoding.decodeUtf8 (fromJust uname) <> "'s User page"
+        let access_token = DBC.unpack (fromJust $ Import.lookup "access_token" sess)
+        let uname = DBC.unpack (fromJust $ Import.lookup "login" sess)
+    	--let access_token = lookup "access_token" sess
+    	--let uname = lookup "login" sess
+    	liftIO $ makeCall (UserData uname access_token)
+    	setTitle . toHtml $ (DT.pack uname) <> "'s User page"
         $(widgetFile "profile")
+
+makeCall :: Lib.UserData -> IO()
+makeCall user = liftIO $ do
+	manager <- Network.HTTP.Client.newManager Network.HTTP.Client.defaultManagerSettings
+	res <- runClientM (initialise_crawl (user)) (ClientEnv manager (BaseUrl Http "localhost" (8020) ""))
+	case res of
+		Left err -> Import.putStrLn "gwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+		Right response -> return ()
+

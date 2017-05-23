@@ -32,61 +32,82 @@ import qualified GitHub.Data.Repos as GithubData
 import qualified GitHub.Data.Name as GDN
 import qualified GitHub.Data as GD 
 import qualified GitHub.Endpoints.Repos.Collaborators as GERC
+import GitHub
+import qualified GitHub.Auth as GA
 import Database.Bolt
 import qualified Data.Map as DM
+
 
 
 data Response_crawl = Response_crawl { result :: String
                                      } deriving (Show,Eq,Generic,ToJSON,FromJSON)
 
 
+data UserData = UserData{ user_name :: String,
+                          user_token :: String
+                        } deriving(ToJSON, FromJSON, Generic, Eq, Show)
 
-type API = "initialise_crawl" :> Get '[JSON] Response_crawl
+
+
+
+
 
 
 startApp :: IO ()
-startApp = Network.Wai.Handler.Warp.run 8080 app
+startApp = Network.Wai.Handler.Warp.run 8020 app
+
+
 
 app :: Application
 app = serve api server
 
+type API = "initialise_crawl" :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
+
 api :: Proxy API
 api = Proxy
+
+
+
 
 server :: Server API
 server = initialise_crawl
   where
-  	initialise_crawl :: Handler Response_crawl
-  	initialise_crawl = do
-  		liftIO $ get_repo "GaryGunn94"
-  		return $ Response_crawl "hello"
+    initialise_crawl :: UserData -> Handler Response_crawl
+    initialise_crawl user = liftIO $ do
+      liftIO $ get_repo user
+      return $ Response_crawl "hello"
   		
+      --
 
 
 
-get_repo :: Text -> IO()
-get_repo name = liftIO $ do
-	user_repository <- Github.userRepos "GaryGunn94" GithubData.RepoPublicityAll
-  	case user_repository of
-  		(Left error) -> do 
-  			putStrLn $ "Error: " ++ (show error)
-  		(Right repos) -> do
-  			liftIO $ insertSomething name
-  			mapM_ (formatRepo "GaryGunn94") repos
-  			putStrLn $ "working"
+get_repo :: UserData -> IO()
+get_repo (UserData uname authT)  = liftIO $ do
+  let auth = Just $ GitHub.OAuth $ (DBC.pack authT)
+  let name = (GDN.N (Data.Text.pack uname))
+  user_repository <- Github.userRepos' auth "GaryGunn94" GithubData.RepoPublicityAll
+  case user_repository of
+    (Left error) -> do 
+      putStrLn $ "Error: " ++ (show error)
+    (Right repos) -> do
+      mapM_ (formatRepo (UserData uname authT)) repos
+      putStrLn $ "working"
+    --liftIO $ insertSomething name
 
-formatRepo :: Text -> Github.Repo -> IO()
-formatRepo name repo = do
-	let repoNames = GDN.untagName $ GithubData.repoName repo
-	putStrLn $ show repoNames
-	user_repository <- (GERC.collaboratorsOn (GD.mkOwnerName name) (GD.mkRepoName repoNames))
-	case user_repository of
-		(Left error) -> do 
-			putStrLn $ "Error: there is no collaborators"
-			a <- getLine
-  		(Right su) -> do
-  			putStrLn (show su)
 
+formatRepo :: UserData -> Github.Repo -> IO()
+formatRepo (UserData uname authT) repo = liftIO $ do
+  let auth = Just $ GitHub.OAuth $ (DBC.pack authT)
+  let name = (GDN.N (Data.Text.pack uname))
+  let repoNames = GDN.untagName $ GithubData.repoName repo
+  putStrLn $ show repoNames
+  user_repository <- (GERC.collaboratorsOn' auth "GaryGunn94" (GD.mkRepoName repoNames))
+  case user_repository of
+    (Left error) -> do 
+      putStrLn $ "Error: there is no collaborators"
+    (Right su) -> do
+      putStrLn (show su)
+        --GD.mkOwnerName name
   			--let desc = (GithubData.repoDescription repos)
 
 
