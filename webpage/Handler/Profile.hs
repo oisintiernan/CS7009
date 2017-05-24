@@ -59,7 +59,7 @@ getProfileR = do
         let uname = DBC.unpack (fromJust $ Import.lookup "login" sess)
     	--let access_token = lookup "access_token" sess
     	--let uname = lookup "login" sess
-    	liftIO $ makeCall (UserData "phadej" access_token)
+    	liftIO $ makeCall (UserData uname access_token)
     	setTitle . toHtml $ (DT.pack uname) <> "'s User page"
         $(widgetFile "profile")
 
