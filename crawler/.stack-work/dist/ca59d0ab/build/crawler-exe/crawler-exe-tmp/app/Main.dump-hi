@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2017-05-24 17:58:10.7934838 UTC
+2017-05-25 09:10:18.9639126 UTC
 
 interface main@main:Main 8002
-  interface hash: a4ee867eb33090a0088e8cf548408c3a
-  ABI hash: 256e55a0bbdfee69d28a08cd582b3e7e
-  export-list hash: 2bb19ba90498cf56a53f04aa26b56629
+  interface hash: eaf728583450050104215527344d3893
+  ABI hash: a2012747c56039b907bdd13c608119eb
+  export-list hash: 6d80abe4ef85fa358cfa2aa78969f01e
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: f6b594c46c7010126aaf988ffef9c2ee
   sig of: Nothing
@@ -43,12 +43,13 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       bytestring-0.10.8.1@bytestring-0.10.8.1
                       case-insensitive-1.2.0.9@case-insensitive-1.2.0.9-DO0AWfy7hdR2nQUG46ef58
                       cereal-0.5.4.0@cereal-0.5.4.0-BsAGxfp8yAs3CiRo2E875e
+                      charset-0.3.7.1@charset-0.3.7.1-LhYDJhbmG13BRL55LkvrSl
                       comonad-5.0.1@comonad-5.0.1-7j4AeOMTFovFSFO9XMFm1
                       connection-0.2.8@connection-0.2.8-33qWolzPMPnEy5T1nUQ2CG
                       containers-0.5.7.1@containers-0.5.7.1
                       contravariant-1.4@contravariant-1.4-3UCY3arLvoG71jrGOYoc39
                       cookie-0.4.2.1@cookie-0.4.2.1-K68NuFIZ07nEstxwB6c3aL
-                      crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd
+                      crawler-0.1.0.0@crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ
                       cryptonite-0.21@cryptonite-0.21-1TaSE99ywh3KfPMyu24x4R
                       data-binary-ieee754-0.4.4@data-binary-ieee754-0.4.4-7iiF2mP1jcB6tVSPgIyBOi
                       data-default-0.7.1.1@data-default-0.7.1.1-7EGYJX2YWqWJRbPFUHNoCr
@@ -85,6 +86,7 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       iso8601-time-0.1.4@iso8601-time-0.1.4-9lDzEEPfRpPG6qGtL0QIn7
                       kan-extensions-5.0.1@kan-extensions-5.0.1-6ECbavVWkY3Cfj2gSieTjm
                       keys-3.11@keys-3.11-ES5mhOVTfWQGk3fzP9UoVQ
+                      lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR
                       memory-0.14.3@memory-0.14.3-IHV9l0IyMA1Ei6UmAoI4It
                       mime-types-0.1.0.7@mime-types-0.1.0.7-31dnC2ifQ9r5TApUZagLPk
                       mmorph-1.0.9@mmorph-1.0.9-5bASEvmIkr5CpdAYXwPsn0
@@ -102,11 +104,14 @@ package dependencies: StateVar-1.1.0.4@StateVar-1.1.0.4-5dJbnTVECtEAhfJXPZKdbO
                       profunctors-5.2@profunctors-5.2-85ZLvwISeusLRZoJlitoyP
                       psqueues-0.2.2.3@psqueues-0.2.2.3-9nDehYbroydEusqdFJopTa
                       random-1.1@random-1.1-9tceXaeYIMZ4JrKq20Egog
+                      reflection-2.1.2@reflection-2.1.2-Bem12O1xFGSHr4C2Hyu1c4
                       safe-0.3.14@safe-0.3.14-GsbXn9D9F3BDazVNcErzdQ
                       scientific-0.3.4.12@scientific-0.3.4.12-J9HRl69dpDBBzAMKxlfkoh
                       semigroupoids-5.1@semigroupoids-5.1-G6hp8hbTJmG326ffvAeaw8
                       servant-0.9.1.1@servant-0.9.1.1-FJ8KWBc6z5LBrccIjGGjxX
                       servant-client-0.9.1.1@servant-client-0.9.1.1-7vKdAfuBBJMIQ6Gz9D1h7V
+                      servant-foreign-0.9.1.1@servant-foreign-0.9.1.1-5t3OFjK7eCs4agtMfwEHQS
+                      servant-js-0.9.3@servant-js-0.9.3-Kl9iuQoVpAXD0K7aps6Hvb
                       servant-server-0.9.1.1@servant-server-0.9.1.1-GA9Cu0CQ8icHXgMrdLHcPB
                       socks-0.5.5@socks-0.5.5-LTLtgt3xp4R6T9CoeQQ5pI
                       stm-2.4.4.1@stm-2.4.4.1-JQn4hNPyYjP5m9AcbI88Ve
@@ -156,6 +161,7 @@ orphans: attoparsec-0.13.1.0@attoparsec-0.13.1.0-HhuV3U7exg79UmloYn3kX2:Data.Att
          hashable-1.2.6.0@hashable-1.2.6.0-3EXxoqeEgbfAKr6aGkye6x:Data.Hashable.Generic
          http-client-0.5.6.1@http-client-0.5.6.1-2W6zxroNdCK5sQzLuJ9gdm:Network.HTTP.Client.Request
          network-2.6.3.1@network-2.6.3.1-AwRxOQvT8JM9e8zDFK7aCI:Network.Socket
+         reflection-2.1.2@reflection-2.1.2-Bem12O1xFGSHr4C2Hyu1c4:Data.Reflection
          stm-2.4.4.1@stm-2.4.4.1-JQn4hNPyYjP5m9AcbI88Ve:Control.Monad.STM
          text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text
          text-1.2.2.1@text-1.2.2.1-Ji7hMs2U4BkBwavd4taEVR:Data.Text.Lazy
@@ -195,7 +201,7 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          containers-0.5.7.1@containers-0.5.7.1:Data.Map.Base
                          containers-0.5.7.1@containers-0.5.7.1:Data.Sequence
                          containers-0.5.7.1@containers-0.5.7.1:Data.Set.Base
-                         crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd:Lib
+                         crawler-0.1.0.0@crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ:Lib
                          dlist-0.8.0.2@dlist-0.8.0.2-6Wnps4GD7EFnRucVzXIFD:Data.DList
                          foundation-0.0.7@foundation-0.0.7-Is1tbv9X5XE1TfMPJqOjwz:Foundation.Array.Bitmap
                          foundation-0.0.7@foundation-0.0.7-Is1tbv9X5XE1TfMPJqOjwz:Foundation.Array.Boxed
@@ -242,11 +248,19 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          iproute-1.7.1@iproute-1.7.1-1VmXzmOljuk9tg4pg6dAZJ:Data.IP.Addr
                          iproute-1.7.1@iproute-1.7.1-1VmXzmOljuk9tg4pg6dAZJ:Data.IP.Range
                          kan-extensions-5.0.1@kan-extensions-5.0.1-6ECbavVWkY3Cfj2gSieTjm:Data.Functor.Day
+                         kan-extensions-5.0.1@kan-extensions-5.0.1-6ECbavVWkY3Cfj2gSieTjm:Data.Functor.Yoneda
                          keys-3.11@keys-3.11-ES5mhOVTfWQGk3fzP9UoVQ:Data.Key
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.At
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.Internal.Indexed
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.Reified
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.Tuple
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.Wrapped
+                         lens-4.15.1@lens-4.15.1-KnRHKhHsKR4Q0bIuDokQR:Control.Lens.Zoom
                          network-uri-2.6.1.0@network-uri-2.6.1.0-EwGrJ9bdUqR1E7dAIJ4cwF:Network.URI
                          pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.Annotated.HughesPJ
                          pretty-1.1.3.3@pretty-1.1.3.3:Text.PrettyPrint.HughesPJ
                          primitive-0.6.1.0@primitive-0.6.1.0-6AbSTw9JXz141LE5p6LGH:Control.Monad.Primitive
+                         profunctors-5.2@profunctors-5.2-85ZLvwISeusLRZoJlitoyP:Data.Profunctor.Rep
                          servant-0.9.1.1@servant-0.9.1.1-FJ8KWBc6z5LBrccIjGGjxX:Servant.API.ContentTypes
                          servant-0.9.1.1@servant-0.9.1.1-FJ8KWBc6z5LBrccIjGGjxX:Servant.API.IsSecure
                          servant-0.9.1.1@servant-0.9.1.1-FJ8KWBc6z5LBrccIjGGjxX:Servant.API.Verbs
@@ -254,6 +268,7 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          servant-client-0.9.1.1@servant-client-0.9.1.1-7vKdAfuBBJMIQ6Gz9D1h7V:Servant.Client
                          servant-client-0.9.1.1@servant-client-0.9.1.1-7vKdAfuBBJMIQ6Gz9D1h7V:Servant.Common.BaseUrl
                          servant-client-0.9.1.1@servant-client-0.9.1.1-7vKdAfuBBJMIQ6Gz9D1h7V:Servant.Common.Req
+                         servant-foreign-0.9.1.1@servant-foreign-0.9.1.1-5t3OFjK7eCs4agtMfwEHQS:Servant.Foreign.Internal
                          servant-server-0.9.1.1@servant-server-0.9.1.1-GA9Cu0CQ8icHXgMrdLHcPB:Servant.Server.Internal
                          servant-server-0.9.1.1@servant-server-0.9.1.1-GA9Cu0CQ8icHXgMrdLHcPB:Servant.Server.Internal.BasicAuth
                          tagged-0.8.5@tagged-0.8.5-1mTloBSoUxv8dqUr8XBGBt:Data.Tagged
@@ -273,7 +288,7 @@ family instance modules: adjunctions-4.3@adjunctions-4.3-4NsFv08p09OH79kZsQDVh1:
                          vector-instances-3.4@vector-instances-3.4-2giQezUHLOTFtaqeGBJVW:Data.Vector.Instances
                          zlib-0.6.1.2@zlib-0.6.1.2-7negTfm2ujt1gW4wr40MUp:Codec.Compression.Zlib.Stream
 import  -/  base-4.9.1.0:Prelude 74b3e204395920329f6de9d97206abe9
-import  -/  crawler-0.1.0.0@crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd:Lib 531badbcc6e4eb4405669cb3607974c0
+import  -/  crawler-0.1.0.0@crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ:Lib 4a8d724c6417466646a7c8b8b01dd5d7
 import  -/  ghc-prim-0.5.0.0:GHC.Types 89f8de4f08018c9177c98d979eae0e45
 d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule :: GHC.Types.Module
@@ -287,12 +302,12 @@ d6831ef04cb9301b090dfae6f7bb7ec7
   $trModule2 :: GHC.Types.TrName
   {- HasNoCafRefs, Strictness: m1,
      Unfolding: (GHC.Types.TrNameS "main"#) -}
-f8979aedbed4b1b3ceccf4da467e0650
+8146d6e60dce23f9a547406ccd5ecfdb
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Lib.startApp1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-ffee95576d4a557248f8fb3f068ba4f8
+0e778531218f2f35b5f5bf52a7cde976
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)

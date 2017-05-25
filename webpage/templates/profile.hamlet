@@ -9,3 +9,10 @@
 
     <p>
       Your data is protected with us <strong><span class="username">#{userIdent user}</span></strong>!
+
+     <input type="button" value="Most Popular Language\n Crawler Started at\n   phadej" id="MyButton" onclick="getGetGraph();">
+
+
+     <svg width="900" height="700">
+    <script src="https://d3js.org/d3.v4.min.js">
+    <script>

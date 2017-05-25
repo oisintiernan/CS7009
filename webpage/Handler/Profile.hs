@@ -47,8 +47,9 @@ api :: S.Proxy Lib.API
 api = S.Proxy
 
 initialise_crawl :: UserData -> ClientM Response_crawl
+getGraph :: ClientM FormatData
 
-(initialise_crawl) = client api
+(initialise_crawl :<|> getGraph) = client api
 
 getProfileR :: Handler Html
 getProfileR = do
@@ -59,7 +60,7 @@ getProfileR = do
         let uname = DBC.unpack (fromJust $ Import.lookup "login" sess)
     	--let access_token = lookup "access_token" sess
     	--let uname = lookup "login" sess
-    	liftIO $ makeCall (UserData uname access_token)
+    	--liftIO $ makeCall (UserData uname access_token)
     	setTitle . toHtml $ (DT.pack uname) <> "'s User page"
         $(widgetFile "profile")
 

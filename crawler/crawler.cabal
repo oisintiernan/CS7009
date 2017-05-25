@@ -28,6 +28,7 @@ library
                      , text
                      , hasbolt
                      , containers
+                     , servant-js
   default-language:    Haskell2010
 
 executable crawler-exe

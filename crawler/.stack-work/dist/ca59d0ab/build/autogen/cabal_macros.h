@@ -63,6 +63,13 @@
   (major1) == 0 && (major2) <  9 || \
   (major1) == 0 && (major2) == 9 && (minor) <= 1)
 
+/* package servant-js-0.9.3 */
+#define VERSION_servant_js "0.9.3"
+#define MIN_VERSION_servant_js(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  9 || \
+  (major1) == 0 && (major2) == 9 && (minor) <= 3)
+
 /* package servant-server-0.9.1.1 */
 #define VERSION_servant_server "0.9.1.1"
 #define MIN_VERSION_servant_server(major1,major2,minor) (\
@@ -140,7 +147,7 @@
   (major1) == 2 && (major2) <  25 || \
   (major1) == 2 && (major2) == 25 && (minor) <= 0)
 
-#define CURRENT_COMPONENT_ID "crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd"
+#define CURRENT_COMPONENT_ID "crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ"
 
-#define CURRENT_PACKAGE_KEY "crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd"
+#define CURRENT_PACKAGE_KEY "crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ"
 

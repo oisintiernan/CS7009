@@ -30,7 +30,7 @@ version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\bin"
-libdir     = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\lib\\x86_64-windows-ghc-8.0.2\\crawler-0.1.0.0-JMINT2wvqRh97IGp9Prdrd"
+libdir     = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\lib\\x86_64-windows-ghc-8.0.2\\crawler-0.1.0.0-HLpwbvb4SyC58OsDuX5cYQ"
 dynlibdir  = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\lib\\x86_64-windows-ghc-8.0.2"
 datadir    = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\share\\x86_64-windows-ghc-8.0.2\\crawler-0.1.0.0"
 libexecdir = "C:\\Users\\oisin\\Desktop\\CS7009\\CS7009\\crawler\\.stack-work\\install\\9320a514\\libexec"

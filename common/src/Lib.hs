@@ -32,8 +32,15 @@ data Response_crawl = Response_crawl { result :: String
 data UserData = UserData{ user_name :: String,
                           user_token :: String
                         } deriving(ToJSON, FromJSON, Generic, Eq, Show)
+-------------------------
+
+data FormatData = FormatData { lang       :: [String],
+                               occurences :: [Int] 	
+                             } deriving(Generic, FromJSON, ToJSON, Eq, Show)
+
 
 
 
 
 type API = "initialise_crawl" :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
+      :<|> "getGraph"         :> Get '[JSON] FormatData

@@ -41,7 +41,7 @@ import Database.Bolt
 import qualified Data.Map as DM
 import qualified Data.Maybe as DMAY
 import Control.Concurrent
-
+import           Servant.JS
 
 
 data Response_crawl = Response_crawl { result :: String
@@ -54,7 +54,9 @@ data UserData = UserData{ user_name :: String,
 
 
 
-
+data FormatData = FormatData { lang       :: [String],
+                               occurences :: [Int]  
+                             } deriving(Generic, FromJSON, ToJSON, Eq, Show)
 
 
 
@@ -67,6 +69,7 @@ app :: Application
 app = serve api server
 
 type API = "initialise_crawl" :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
+           :<|> "getGraph"         :> Get '[JSON] FormatData
 
 api :: Proxy API
 api = Proxy
@@ -75,7 +78,8 @@ api = Proxy
 
 
 server :: Server API
-server = initialise_crawl
+server = initialise_crawl :<|> getGraph
+
   where
     initialise_crawl :: UserData -> Handler Response_crawl
     initialise_crawl (UserData uname authT) = liftIO $ do
@@ -90,7 +94,13 @@ server = initialise_crawl
           liftIO $ forkIO $ get_repo (UserData uname authT)
           return $ Response_crawl "hello"
       
-  		
+  	
+    getGraph :: Handler FormatData
+    getGraph = liftIO $ do
+      putStrLn $ "Getting graph"
+      getData <- langGraph
+      return getData
+   
       --
 
 
@@ -153,7 +163,7 @@ formatRepo (UserData uname authT) repo = liftIO $ do
             (Right stars) -> do
               mapM_ (formatStaryNames (UserData uname authT)) stars
     (Just lang) -> do
-      let langu = getLanguage lang
+      let langu = GitHub.getLanguage lang
       res <- lookupLang (langu)
       case res of
         False -> do
@@ -175,19 +185,6 @@ formatRepo (UserData uname authT) repo = liftIO $ do
             (Right stars) -> do
               mapM_ (formatStaryNames (UserData uname authT)) stars      
     
-
-
-
-
-
-
-
-  --let repoLanguages = getLanguage (DMAY.fromJust (GithubData.repoLanguage repo))
-  --putStrLn (show repoLanguages)
-  --putStrLn $ "this is a repo name " ++ (show repoNames)
-
-        --
-        --let desc = (GithubData.repoDescription repos)
 
 
 
@@ -293,10 +290,27 @@ lookupUser userName = do
 
 
 
+langGraph:: IO FormatData
+langGraph = do
+    pipe <- connect $ def { user = "neo4j", password = "oisin" }
+    noderecords <- Database.Bolt.run pipe $ Database.Bolt.query cypher
+    lang <- (mapM Lib.getLanguage) noderecords
+    pop  <- (mapM getOccur) noderecords
+    return (FormatData lang pop)
+
+  where cypher = "MATCH (n)-[r:isWrittenIn]->(x) RETURN x.langname as lang, COUNT(r) as occurences ORDER BY COUNT(r) DESC LIMIT 20"
 
 
+getLanguage :: Record -> IO String       
+getLanguage input = do 
+   l <- input `Database.Bolt.at` "lang" >>= exact :: IO Text
+   let language = show l
+   return language
 
-
+getOccur :: Record -> IO Int       
+getOccur input = do 
+   o <- input `Database.Bolt.at` "occurences" >>= exact :: IO Int
+   return o
 
 
 --RETURN r
