@@ -4,7 +4,7 @@ TASKS
 Oauth
 Complete.
 
-Crawler
+*Crawler*
 Complete.
 Crawler crawls through accounts, it starts at a user, then records that users repositories, repository languages and who has starred those repositories. The process is then repeated for the users who starred the previous repositories. 
 Fill Neo4j Database
