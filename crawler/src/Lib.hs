@@ -58,6 +58,16 @@ data FormatData = FormatData { lang       :: [String],
                                occurences :: [Int]  
                              } deriving(Generic, FromJSON, ToJSON, Eq, Show)
 
+data Node = Node{ id :: String,
+                  group :: String
+                } deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
+
+data Link = Link{source :: String,
+                 target :: String,
+                 value :: String
+                }deriving(ToJSON, FromJSON, Generic, Eq, Show)
+
 
 
 startApp :: IO ()
@@ -68,8 +78,9 @@ startApp = Network.Wai.Handler.Warp.run 8020 app
 app :: Application
 app = serve api server
 
-type API = "initialise_crawl" :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
+type API = "initialise_crawl"      :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
            :<|> "getGraph"         :> Get '[JSON] FormatData
+           :<|> "getStarGraph"     :> Get '[JSON] FormatData
 
 api :: Proxy API
 api = Proxy
@@ -78,7 +89,7 @@ api = Proxy
 
 
 server :: Server API
-server = initialise_crawl :<|> getGraph
+server = initialise_crawl :<|> getGraph :<|> getStarGraph
 
   where
     initialise_crawl :: UserData -> Handler Response_crawl
@@ -100,8 +111,14 @@ server = initialise_crawl :<|> getGraph
       putStrLn $ "Getting graph"
       getData <- langGraph
       return getData
+
+    getStarGraph :: Handler FormatData
+    getStarGraph = liftIO $ do
+      putStrLn $ "Getting graph"
+      getData <- selfStarGraph
+      return getData
    
-      --
+     
 
 
 
@@ -193,7 +210,9 @@ formatStaryNames (UserData uname authT) stars  = liftIO $ do
   let auth = Just $ GitHub.OAuth $ (DBC.pack authT)
   let name = (GDN.N (Data.Text.pack uname))
   let starNames = GDN.untagName $ GDD.simpleUserLogin stars
-  res <- lookupUser (starNames)
+  liftIO $ insertStarLink starNames (Data.Text.pack uname)
+  putStrLn $ (show starNames) ++ " starred" ++ uname
+  res <- lookupUser (starNames) 
   case res of
     True -> do
       liftIO $ get_repo (UserData (Data.Text.unpack starNames) authT)
@@ -221,6 +240,17 @@ insertLanguageLink repoName langName  = do
   where cypher = "MATCH (r:Repo {reponame: {repoName}}), (l:Lang {langname: {langName}}) \n CREATE UNIQUE (r)-[c:isWrittenIn]->(l)" 
 
         params = DM.fromList [ ("repoName", T repoName),("langName", T langName) ]
+
+insertStarLink :: Text -> Text -> IO()
+insertStarLink u1 u2  = do
+  pipe <- connect $ def { user = "neo4j", password = "oisin" }
+  result <- Database.Bolt.run pipe $ queryP cypher params
+  putStrLn $ (show u1) ++ "starred " ++ (show u2)
+  close pipe
+
+  where cypher = "MATCH (r:User {username: {starred}}), (l:User {username: {userName}}) \n CREATE (r)-[c:starred]->(l)" 
+
+        params = DM.fromList [ ("starred", T u1),("userName", T u2) ]
 
 
 
@@ -289,6 +319,16 @@ lookupUser userName = do
        params = DM.fromList [("userName", Database.Bolt.T userName)]
 
 
+selfStarGraph:: IO FormatData
+selfStarGraph = do
+    pipe <- connect $ def { user = "neo4j", password = "oisin" }
+    noderecords <- Database.Bolt.run pipe $ Database.Bolt.query cypher
+    user <- (mapM Lib.getUser) noderecords
+    pop  <- (mapM getOccur) noderecords
+    return (FormatData user pop)
+
+  where cypher = "MATCH (x)-[r:starred]->(x) RETURN x.username as user, COUNT(r) as occurences ORDER BY COUNT(r) DESC LIMIT 20"
+
 
 langGraph:: IO FormatData
 langGraph = do
@@ -313,7 +353,8 @@ getOccur input = do
    return o
 
 
---RETURN r
---Need to make an initial function which just gets one repository and then adds it to the neo4j graph.
-
-
+getUser :: Record -> IO String       
+getUser input = do 
+   l <- input `Database.Bolt.at` "user" >>= exact :: IO Text
+   let language = show l
+   return language

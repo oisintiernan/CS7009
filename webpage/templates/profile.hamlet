@@ -8,10 +8,16 @@
       Your token is #{show access_token}
 
     <p>
-      Your data is protected with us <strong><span class="username">#{userIdent user}</span></strong>!
+      Your data is protected with us <strong><span class="username">#{userIdent user}</span></strong>!<br /> 
 
-     <input type="button" value="Most Popular Language\n Crawler Started at\n   phadej" id="MyButton" onclick="getGetGraph();">
+     <input type="button" value="Most Popular Language" id="MyButton" onclick="getBarGraph();"><br /> 
 
+     Out of the repositories crawled, which were centered around phadej (the account which details the haskell libraries for the github API), JavaScript appears to be the most popular language. I was interested to discover this as centering the crawler around such a prominent Haskell account may result in haskell having a higher usage than what would normally be expected. This was not the case.<br /> 
+
+
+     <input type="button" value="Self Starred Repositories" id="MyButton" onclick="getStarGraph();"><br /> 
+
+     Further more I was interested to find out whether many people star their own repositories. Unsurprisingly not many people star their own repos... but there are always some outliers in this case mcanthony who seems to have starred 675 repositories. I investigated mcanthony further and he had a huge 4.2 k repos which perhaps makes 675 self stars slightly more understandable but still a bit ridiculous. This might be a way of promoting work he is has completed (in the employee sense this could be regarded as dishonest)<br /> 
 
      <svg width="900" height="700">
     <script src="https://d3js.org/d3.v4.min.js">

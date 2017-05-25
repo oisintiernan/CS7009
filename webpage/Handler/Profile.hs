@@ -48,8 +48,9 @@ api = S.Proxy
 
 initialise_crawl :: UserData -> ClientM Response_crawl
 getGraph :: ClientM FormatData
+getStarGraph :: ClientM FormatData
 
-(initialise_crawl :<|> getGraph) = client api
+(initialise_crawl :<|> getGraph :<|> getStarGraph) = client api
 
 getProfileR :: Handler Html
 getProfileR = do
@@ -58,9 +59,7 @@ getProfileR = do
     	sess <- getSession
         let access_token = DBC.unpack (fromJust $ Import.lookup "access_token" sess)
         let uname = DBC.unpack (fromJust $ Import.lookup "login" sess)
-    	--let access_token = lookup "access_token" sess
-    	--let uname = lookup "login" sess
-    	--liftIO $ makeCall (UserData uname access_token)
+    	--liftIO $ makeCall (UserData "phadej" access_token)
     	setTitle . toHtml $ (DT.pack uname) <> "'s User page"
         $(widgetFile "profile")
 

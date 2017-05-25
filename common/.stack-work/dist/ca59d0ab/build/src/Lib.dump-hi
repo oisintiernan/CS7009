@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2017-05-25 07:53:19.8741869 UTC
+2017-05-25 18:28:38.8915397 UTC
 
 interface common-0.1.0.0-DfTAEsKJRSCaORMdpVE57:Lib [family instance module] 8002
-  interface hash: 9874722556ea41018aa7fb54eaa50bd9
-  ABI hash: 7cfb298a81e5148d0b7cfa1e9021cc1b
+  interface hash: 39ee47a4f5013c0cc195c7184165c119
+  ABI hash: da276422537c80569ce37e0ebd724c3d
   export-list hash: d503cc307d2582ff5aa8cf95ac3f8ce0
   orphan hash: 04733572194eacc552b8b3196c64bc8f
   flag hash: dea2477ea68e5f5a63478724d0b3ff53
@@ -4467,17 +4467,21 @@ d92f318897d72cc638f40992f25ad86b
           Data.Text.Internal.Text #)
   {- Arity: 5, Strictness: <L,U(U)><L,U(U)><S,1*U><S,U><S,U>,
      Inline: [0] -}
-740d4da748b55cb9dc9d6409ca01b39b
+dc6fcdcbac45057c5b214144b3fb5d06
   type API =
     ("initialise_crawl"
      Servant.API.Sub.:> (Servant.API.ReqBody.ReqBody
                            '[Servant.API.ContentTypes.JSON] Lib.UserData
                          Servant.API.Sub.:> Servant.API.Verbs.Post
                                               '[Servant.API.ContentTypes.JSON] Lib.Response_crawl))
-    Servant.API.Alternative.:<|> ("getGraph"
-                                  Servant.API.Sub.:> Servant.API.Verbs.Get
-                                                       '[Servant.API.ContentTypes.JSON]
-                                                       Lib.FormatData)
+    Servant.API.Alternative.:<|> (("getGraph"
+                                   Servant.API.Sub.:> Servant.API.Verbs.Get
+                                                        '[Servant.API.ContentTypes.JSON]
+                                                        Lib.FormatData)
+                                  Servant.API.Alternative.:<|> ("getStarGraph"
+                                                                Servant.API.Sub.:> Servant.API.Verbs.Get
+                                                                                     '[Servant.API.ContentTypes.JSON]
+                                                                                     Lib.FormatData))
 bdf17ffe9e3e0ab5d51e93485f4c4ab0
   data FormatData
     = FormatData {lang :: [GHC.Base.String],

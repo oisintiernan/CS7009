@@ -44,3 +44,4 @@ data FormatData = FormatData { lang       :: [String],
 
 type API = "initialise_crawl" :> ReqBody '[JSON] UserData :> Post '[JSON] Response_crawl
       :<|> "getGraph"         :> Get '[JSON] FormatData
+      :<|> "getStarGraph"     :> Get '[JSON] FormatData
