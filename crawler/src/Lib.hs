@@ -118,10 +118,12 @@ server = initialise_crawl :<|> getGraph :<|> getStarGraph
       getData <- selfStarGraph
       return getData
    
-     
+--------------------------------------------------------------------------------------------------
+----------------------CRAWLER FUNCTIONS-----------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 
-
+          ----GET USER REPOSITORIES SO LONG AS USER IS NOT ALREADY IN THE DATABASE----
 get_repo :: UserData -> IO()
 get_repo (UserData uname authT)  = liftIO $ do
   let auth = Just $ GitHub.OAuth $ (DBC.pack authT)
@@ -143,12 +145,9 @@ get_repo (UserData uname authT)  = liftIO $ do
         (Right repos) -> do
           mapM_ (formatRepo (UserData uname authT)) repos
   
-      
-    --liftIO $ insertSomething name
 
 
-
---at this point have language, user, repo
+----GET REPO DETAILS AND INSERT DATA INTO NEO, ALSO FIND OUT WHO STARRED REPO----
 formatRepo :: UserData -> Github.Repo -> IO()
 formatRepo (UserData uname authT) repo = liftIO $ do
   let auth = Just $ GitHub.OAuth $ (DBC.pack authT)
@@ -218,105 +217,9 @@ formatStaryNames (UserData uname authT) stars  = liftIO $ do
       liftIO $ get_repo (UserData (Data.Text.unpack starNames) authT)
     False -> do
       return()
-
-
-insertOwnershipLink :: Text -> Text -> IO()
-insertOwnershipLink repoName userName = do
-  pipe <- connect $ def { user = "neo4j", password = "oisin" }
-  result <- Database.Bolt.run pipe $ queryP cypher params
-  --putStrLn "making link"
-  close pipe
-
-  where cypher = "MATCH (r:User {username: {userName}}), (l:Repo {reponame: {repoName}}) \n CREATE UNIQUE (r)-[c:owns]->(l)" 
-
-        params = DM.fromList [ ("userName", T userName),("repoName", T repoName) ]
-
-insertLanguageLink :: Text -> Text -> IO()
-insertLanguageLink repoName langName  = do
-  pipe <- connect $ def { user = "neo4j", password = "oisin" }
-  result <- Database.Bolt.run pipe $ queryP cypher params
-  close pipe
-
-  where cypher = "MATCH (r:Repo {reponame: {repoName}}), (l:Lang {langname: {langName}}) \n CREATE UNIQUE (r)-[c:isWrittenIn]->(l)" 
-
-        params = DM.fromList [ ("repoName", T repoName),("langName", T langName) ]
-
-insertStarLink :: Text -> Text -> IO()
-insertStarLink u1 u2  = do
-  pipe <- connect $ def { user = "neo4j", password = "oisin" }
-  result <- Database.Bolt.run pipe $ queryP cypher params
-  putStrLn $ (show u1) ++ "starred " ++ (show u2)
-  close pipe
-
-  where cypher = "MATCH (r:User {username: {starred}}), (l:User {username: {userName}}) \n CREATE (r)-[c:starred]->(l)" 
-
-        params = DM.fromList [ ("starred", T u1),("userName", T u2) ]
-
-
-
-
-insertRepo :: Text -> IO [Record]
-insertRepo repoName = do
-   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
-   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-   Database.Bolt.close pipe
-   return result
- where cypher = "CREATE (n:Repo {reponame: {repoName}}) RETURN n"
-       params = DM.fromList [("repoName", Database.Bolt.T repoName)]
-
-insertLanguage :: Text -> IO [Record]
-insertLanguage langName = do
-   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
-   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-   Database.Bolt.close pipe
-   return result
- where cypher = "CREATE (n:Lang {langname: {langName}}) RETURN n"
-       params = DM.fromList [("langName", Database.Bolt.T langName)]
-
-insertUser :: Text -> IO [Record]
-insertUser userName = do
-   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
-   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-   Database.Bolt.close pipe
-   return result
- where cypher = "CREATE (n:User {username: {userName}}) RETURN n"
-       params = DM.fromList [("userName", Database.Bolt.T userName)]
-
-
-
-lookupLang :: Text -> IO Bool
-lookupLang langName = do
-  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
-  neo_pipe <- Database.Bolt.connect $ neo_conf 
-  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-  Database.Bolt.close neo_pipe
-  let isEmpty = Data.List.null records
-  return isEmpty
- where cypher = "MATCH (n:Lang { langname: {langName} })RETURN n"
-       params = DM.fromList [("langName", Database.Bolt.T langName)]
-
-
-lookupRepo :: Text -> IO Bool
-lookupRepo repoName = do
-  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
-  neo_pipe <- Database.Bolt.connect $ neo_conf 
-  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-  Database.Bolt.close neo_pipe
-  let isEmpty = Data.List.null records
-  return isEmpty
- where cypher = "MATCH (n:Repo { reponame: {RepoName} })RETURN n"
-       params = DM.fromList [("repoName", Database.Bolt.T repoName)]
-
-lookupUser :: Text -> IO Bool
-lookupUser userName = do
-  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
-  neo_pipe <- Database.Bolt.connect $ neo_conf 
-  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
-  Database.Bolt.close neo_pipe
-  let isEmpty = Data.List.null records
-  return isEmpty
- where cypher = "MATCH (n:User { username: {userName} })RETURN n"
-       params = DM.fromList [("userName", Database.Bolt.T userName)]
+--------------------------------------------------------------------------------------------------
+----------------------OBTAINING GRAPH INFO--------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 
 
 selfStarGraph:: IO FormatData
@@ -358,3 +261,113 @@ getUser input = do
    l <- input `Database.Bolt.at` "user" >>= exact :: IO Text
    let language = show l
    return language
+
+--------------------------------------------------------------------------------------------------
+----------------------NEO4J RELATIONSHIP DECLARATION----------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+
+
+insertOwnershipLink :: Text -> Text -> IO()
+insertOwnershipLink repoName userName = do
+  pipe <- connect $ def { user = "neo4j", password = "oisin" }
+  result <- Database.Bolt.run pipe $ queryP cypher params
+  --putStrLn "making link"
+  close pipe
+
+  where cypher = "MATCH (r:User {username: {userName}}), (l:Repo {reponame: {repoName}}) \n CREATE UNIQUE (r)-[c:owns]->(l)" 
+
+        params = DM.fromList [ ("userName", T userName),("repoName", T repoName) ]
+
+insertLanguageLink :: Text -> Text -> IO()
+insertLanguageLink repoName langName  = do
+  pipe <- connect $ def { user = "neo4j", password = "oisin" }
+  result <- Database.Bolt.run pipe $ queryP cypher params
+  close pipe
+
+  where cypher = "MATCH (r:Repo {reponame: {repoName}}), (l:Lang {langname: {langName}}) \n CREATE UNIQUE (r)-[c:isWrittenIn]->(l)" 
+
+        params = DM.fromList [ ("repoName", T repoName),("langName", T langName) ]
+
+insertStarLink :: Text -> Text -> IO()
+insertStarLink u1 u2  = do
+  pipe <- connect $ def { user = "neo4j", password = "oisin" }
+  result <- Database.Bolt.run pipe $ queryP cypher params
+  putStrLn $ (show u1) ++ "starred " ++ (show u2)
+  close pipe
+
+  where cypher = "MATCH (r:User {username: {starred}}), (l:User {username: {userName}}) \n CREATE (r)-[c:starred]->(l)" 
+
+        params = DM.fromList [ ("starred", T u1),("userName", T u2) ]
+
+--------------------------------------------------------------------------------------------------
+----------------------NEO4J NODE DECLARATION------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+
+insertRepo :: Text -> IO [Record]
+insertRepo repoName = do
+   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
+   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+   Database.Bolt.close pipe
+   return result
+ where cypher = "CREATE (n:Repo {reponame: {repoName}}) RETURN n"
+       params = DM.fromList [("repoName", Database.Bolt.T repoName)]
+
+insertLanguage :: Text -> IO [Record]
+insertLanguage langName = do
+   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
+   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+   Database.Bolt.close pipe
+   return result
+ where cypher = "CREATE (n:Lang {langname: {langName}}) RETURN n"
+       params = DM.fromList [("langName", Database.Bolt.T langName)]
+
+insertUser :: Text -> IO [Record]
+insertUser userName = do
+   pipe <- Database.Bolt.connect $ def { user = "neo4j", password = "oisin" }
+   result <- Database.Bolt.run pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+   Database.Bolt.close pipe
+   return result
+ where cypher = "CREATE (n:User {username: {userName}}) RETURN n"
+       params = DM.fromList [("userName", Database.Bolt.T userName)]
+
+--------------------------------------------------------------------------------------------------
+----------------------NEO4J LOOKUP FUNCTIONS------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+lookupLang :: Text -> IO Bool
+lookupLang langName = do
+  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
+  neo_pipe <- Database.Bolt.connect $ neo_conf 
+  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+  Database.Bolt.close neo_pipe
+  let isEmpty = Data.List.null records
+  return isEmpty
+ where cypher = "MATCH (n:Lang { langname: {langName} })RETURN n"
+       params = DM.fromList [("langName", Database.Bolt.T langName)]
+
+
+lookupRepo :: Text -> IO Bool
+lookupRepo repoName = do
+  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
+  neo_pipe <- Database.Bolt.connect $ neo_conf 
+  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+  Database.Bolt.close neo_pipe
+  let isEmpty = Data.List.null records
+  return isEmpty
+ where cypher = "MATCH (n:Repo { reponame: {RepoName} })RETURN n"
+       params = DM.fromList [("repoName", Database.Bolt.T repoName)]
+
+lookupUser :: Text -> IO Bool
+lookupUser userName = do
+  let neo_conf = Database.Bolt.def { Database.Bolt.user = "neo4j", Database.Bolt.password = "oisin" }
+  neo_pipe <- Database.Bolt.connect $ neo_conf 
+  records <- Database.Bolt.run neo_pipe $ Database.Bolt.queryP (Data.Text.pack cypher) params
+  Database.Bolt.close neo_pipe
+  let isEmpty = Data.List.null records
+  return isEmpty
+ where cypher = "MATCH (n:User { username: {userName} })RETURN n"
+       params = DM.fromList [("userName", Database.Bolt.T userName)]
+
+
